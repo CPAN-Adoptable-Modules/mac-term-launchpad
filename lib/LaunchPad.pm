@@ -1,9 +1,6 @@
 #!/usr/bin/perl
 
 package Mac::iTerm::LaunchPad;
-#
-# Open a new terminal in the Finder cwd
-#
 
 our $VERSION = sprintf "%d.%03d", q$Revision$ =~ m/(\d+) \. (\d+)/x;
 
@@ -43,6 +40,16 @@ save on typing. Without arguments it finds the frontmost finder window
 and uses that as the directory. The special directory named "finder"
 does the same thing (so you're stuck if you have a directory with that
 name: give it a different alias).
+
+=head2 Modulino
+
+This script is actually a modulino. It's a symlink to the
+C<Mac::iTerm::LaunchPad> module. That module figures out if it's run
+as a script or included as a module and does the right thing. If you
+want to change the program, edit the module.
+
+If you don't like that idea, use the included F<scripts/new-iterm>
+program which does the same thing without the symlink.
 
 =head2 Aliases
 
@@ -102,6 +109,10 @@ You may use this program under the same terms as Perl itself.
 
 Some parts come from Chris Nandor and are noted in the source. They are
 available under the same license.
+
+=head1 SEE ALSO
+
+iTerm - http://iterm.sourceforge.net/
 
 =cut
 

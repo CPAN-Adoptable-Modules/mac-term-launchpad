@@ -3,6 +3,17 @@ use ExtUtils::MakeMaker;
 
 eval "use Test::Manifest 1.14";
 
+sub MY::postamble {
+	<<'MAKE';
+install :: new-iterm-install
+	
+new-iterm-install:
+	$(ECHO) "Installing new-iterm symlink to module"
+	/bin/ln -sfv $(INSTALLSITELIB)/Mac/iTerm/LaunchPad.pm $(INSTALLBIN)/new-iterm 
+	$(CHMOD) 755 $(INSTALLSITELIB)/Mac/iTerm/LaunchPad.pm
+MAKE
+	}
+	
 WriteMakefile(
 	'NAME'	       => 'Mac::iTerm::LaunchPad',
 	'VERSION_FROM' => 'lib/LaunchPad.pm',
