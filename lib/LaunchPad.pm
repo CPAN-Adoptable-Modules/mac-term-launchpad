@@ -27,9 +27,13 @@ new-iterm - open a new iTerm window with one or more tabs
 	
 	---Aliases, predefined in code
 	% new-iterm music applications
+
 	
 	---Aliases, defined in your own ~/.new-iterm-aliases
 	% new-iterm foo bar baz
+	
+	---Any combination
+	% new-iterm finder /Users/brian/Dev music ~/Pictures foo
 	
 =head1 DESCRIPTION
 
