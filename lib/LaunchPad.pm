@@ -36,6 +36,14 @@ new-iterm - open a new iTerm window with one or more tabs
 	
 =head1 DESCRIPTION
 
+This script opens a new iTerm window and creates a tab for each
+directory. Within each tab, it changes to that directory. It allows
+you to use aliases (not the filesystem sort, the nickname sort) to
+save on typing. Without arguments it finds the frontmost finder window
+and uses that as the directory. The special directory named "finder"
+does the same thing (so you're stuck if you have a directory with that
+name: give it a different alias).
+
 =head2 Aliases
 
 You can define aliases in the F<~/.new-iterm-aliases> file. The file
@@ -73,9 +81,7 @@ use the right case and remove the C<lc()> in the code.
 
 =item switch to choose session name (currently just default)
 
-=item special alias for finder windows?
-
-	new-iterm dir1 dir2 finder
+=item switch to specify tabs or new windows?
 
 =back
 
@@ -93,6 +99,9 @@ script from Curtis "Ovid" Poe
 Copyright 2007, brian d foy.
 
 You may use this program under the same terms as Perl itself.
+
+Some parts come from Chris Nandor and are noted in the source. They are
+available under the same license.
 
 =cut
 
