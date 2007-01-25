@@ -1,4 +1,5 @@
 #!/usr/bin/perl
+use strict;
 
 package Mac::iTerm::LaunchPad;
 
@@ -102,9 +103,8 @@ use the right case and remove the C<lc()> in the code.
 
 brian d foy, C<< <bdfoy@cpan.org> >>
 
-Inspired by a script from Chris Nandor
-(http://use.perl.org/~pudge/journal/32199) which was inspired by a
-script from Curtis "Ovid" Poe
+Inspired by a script from Chris Nandor (http://use.perl.org/~pudge/journal/32199) 
+which was inspired by a script from Curtis "Ovid" Poe 
 (http://use.perl.org/~Ovid/journal/32086).
 
 =head1 COPYRIGHT AND LICENSE
