@@ -19,11 +19,12 @@ WriteMakefile(
 	'NAME'	       => 'Mac::iTerm::LaunchPad',
 	'VERSION_FROM' => 'lib/LaunchPad.pm',
 	'LICENSE'	   => 'perl',
+	'AUTHOR'       => 'brian d foy <bdfoy@cpan.org>',
 	
 	'PREREQ_PM'    => { 
 		'Test::More'     => '0',
 		'Mac::Files'     => '0',
-		'Mac::Glue'      => '0',
+		'Mac::Glue'      => '1.28',
 		'Mac::Processes' => '0',
 		},
 

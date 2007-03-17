@@ -3,7 +3,9 @@ use strict;
 
 package Mac::iTerm::LaunchPad;
 
-our $VERSION = sprintf "%d.%03d", q$Revision$ =~ m/(\d+) \. (\d+)/x;
+our $VERSION = 1.007;
+
+#sprintf "%d.%03d", q$Revision$ =~ m/(\d+) \. (\d+)/x;
 
 =head1 NAME
 
