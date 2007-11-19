@@ -1,6 +1,8 @@
 # $Id$
 use ExtUtils::MakeMaker;
 
+require 5.006;
+
 eval "use Test::Manifest 1.14";
 
 sub MY::postamble 
@@ -17,6 +19,8 @@ MAKE
 	
 WriteMakefile(
 	'NAME'	       => 'Mac::iTerm::LaunchPad',
+	'ABSTRACT'     => 'Launch new iTerm windows and tabs';
+
 	'VERSION_FROM' => 'lib/LaunchPad.pm',
 	'LICENSE'	   => 'perl',
 	'AUTHOR'       => 'brian d foy <bdfoy@cpan.org>',
