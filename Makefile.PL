@@ -1,6 +1,12 @@
 # $Id$
 use ExtUtils::MakeMaker;
 
+unless( $^O =~ /darwin/ )
+	{
+	warn "OS unsupported! You need a Mac for this module!\n";
+	exit 0;
+	}
+
 require 5.006;
 
 eval "use Test::Manifest 1.14";
@@ -19,8 +25,7 @@ MAKE
 	
 WriteMakefile(
 	'NAME'	       => 'Mac::iTerm::LaunchPad',
-	'ABSTRACT'     => 'Launch new iTerm windows and tabs';
-
+	'ABSTRACT'     => 'Launch new iTerm windows and tabs',
 	'VERSION_FROM' => 'lib/LaunchPad.pm',
 	'LICENSE'	   => 'perl',
 	'AUTHOR'       => 'brian d foy <bdfoy@cpan.org>',
