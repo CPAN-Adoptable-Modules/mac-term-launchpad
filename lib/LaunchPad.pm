@@ -110,6 +110,12 @@ Inspired by a script from Chris Nandor (http://use.perl.org/~pudge/journal/32199
 which was inspired by a script from Curtis "Ovid" Poe 
 (http://use.perl.org/~Ovid/journal/32086).
 
+=head1 SOURCE AVAILABILITY
+
+This source is in GitHub:
+
+	https://github.com/briandfoy/Mac-iTerm-LaunchPad
+
 =head1 COPYRIGHT AND LICENSE
 
 Copyright 2007, brian d foy.
