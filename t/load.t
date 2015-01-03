@@ -1,4 +1,3 @@
-# $Id$
 BEGIN {
 	@classes = qw(Mac::iTerm::LaunchPad);
 	}
