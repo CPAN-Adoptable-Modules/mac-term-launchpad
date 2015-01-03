@@ -118,7 +118,7 @@ This source is in GitHub:
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2007-2015, brian d foy.
+Copyright © 2007-2015, brian d foy <bdfoy@cpan.org>. All rights reserved.
 
 You may use this program under the same terms as Perl itself.
 
