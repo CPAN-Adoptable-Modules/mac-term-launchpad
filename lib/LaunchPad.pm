@@ -6,9 +6,7 @@ no warnings;
 
 package Mac::iTerm::LaunchPad;
 
-our $VERSION = 1.008;
-
-#sprintf "%d.%03d", q$Revision$ =~ m/(\d+) \. (\d+)/x;
+our $VERSION = '1.009';
 
 =head1 NAME
 
