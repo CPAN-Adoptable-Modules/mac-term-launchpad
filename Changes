@@ -1,4 +1,4 @@
-# Changes to Mac::iTerm::LaunchPad
+Revision history for Perl module Mac::iTerm::LaunchPad
 
 1.08 - Fri Jan 18 04:00:17 2008
 	* Exit gracefully in Makefile.PL is someone tries to run it
