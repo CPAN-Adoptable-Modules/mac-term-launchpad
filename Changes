@@ -1,6 +1,4 @@
-1.01 - Sat Jan 20 00:58:16 2007
-	* First release of script to create new iTerm sessions in specified
-	directories, but without a lot of typing
+# Changes to Mac::iTerm::LaunchPad
 
 1.08 - Fri Jan 18 04:00:17 2008
 	* Exit gracefully in Makefile.PL is someone tries to run it
@@ -29,4 +27,8 @@
 
 1.02 - Sat Jan 20 01:16:33 2007
 	* Doc patch to fill in the DESCRIPTION portion
+
+1.01 - Sat Jan 20 00:58:16 2007
+	* First release of script to create new iTerm sessions in specified
+	directories, but without a lot of typing
 
