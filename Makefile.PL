@@ -1,4 +1,6 @@
-use ExtUtils::MakeMaker;
+require 5.008;
+use strict;
+use warnings;
 
 unless( $^O =~ /darwin/ )
 	{
@@ -6,9 +8,6 @@ unless( $^O =~ /darwin/ )
 	exit 0;
 	}
 
-require 5.006;
-
-eval "use Test::Manifest 1.14";
 
 sub MY::postamble 
 	{
@@ -22,26 +21,21 @@ new-iterm-install:
 MAKE
 	}
 	
-WriteMakefile(
-	'NAME'	       => 'Mac::iTerm::LaunchPad',
-	'ABSTRACT'     => 'Launch new iTerm windows and tabs',
-	'VERSION_FROM' => 'lib/LaunchPad.pm',
-	'LICENSE'	   => 'perl',
-	'AUTHOR'       => 'brian d foy <bdfoy@cpan.org>',
+my $github    = 'https://github.com/briandfoy/';
+my $main_file = 'lib/Mac/iTerm/LaunchPad.pm';
+
+my %WriteMakefile = (
+	'NAME'	        => 'Mac::iTerm::LaunchPad',
+	'ABSTRACT_FROM' => $main_file,
+	'VERSION_FROM'  => $main_file,
+	'LICENSE'	    => 'perl',
+	'AUTHOR'        => 'brian d foy <bdfoy@cpan.org>',
 	
 	'PREREQ_PM'    => { 
 		'Test::More'     => '0',
 		'Mac::Files'     => '0',
 		'Mac::Glue'      => '1.28',
 		'Mac::Processes' => '0',
-		},
-
-	'PM'           => {
-		'lib/LaunchPad.pm'         => '$(INST_LIBDIR)/LaunchPad.pm',
-		},
-
-	'MAN3PODS'     => {
-		'lib/LaunchPad.pm' => '$(INST_MAN3DIR)/Mac::iTerm::LaunchPad.3',
 		},
 
 	clean  => { FILES    => q|Mac-iTerm-LaunchPad-*| },
@@ -94,3 +88,23 @@ unless( defined $iterm )
 }
 
 1;
+
+sub arguments { \%WriteMakefile }
+
+do_it() unless caller;
+sub do_it {
+	require File::Spec;
+	my $MM ='ExtUtils::MakeMaker';
+	my $MM_version =
+		eval{ "$MM " . $WriteMakefile{'CONFIGURE_REQUIRES'}{'ExtUtils::MakeMaker'} }
+			//
+		"$MM 6.64";
+	eval "use $MM_version";
+	eval "use Test::Manifest 1.21" 
+		if -e File::Spec->catfile( qw(t test_manifest) );
+	WriteMakefile( %WriteMakefile );
+	}
+
+
+no warnings;
+__PACKAGE__;
