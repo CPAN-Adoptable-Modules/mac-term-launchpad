@@ -1,28 +1,15 @@
 require 5.008;
+
+die "OS unsupported! You need a Mac for this module!\n" 
+	unless $^O =~ /darwin/;
+
+package Mac::iTerm::LaunchPad;
 use strict;
 use warnings;
 
-unless( $^O =~ /darwin/ ) {
-	warn "OS unsupported! You need a Mac for this module!\n";
-	exit 0;
-	}
-
-
-sub MY::postamble 
-	{
-	<<'MAKE';
-install :: new-iterm-install
-	
-new-iterm-install:
-	$(ECHO) "Installing new-iterm symlink to module"
-	/bin/ln -sfv $(INSTALLSITELIB)/Mac/iTerm/LaunchPad.pm $(INSTALLBIN)/new-iterm 
-	$(CHMOD) 755 $(INSTALLSITELIB)/Mac/iTerm/LaunchPad.pm
-MAKE
-	}
-	
 use File::Spec::Functions qw(catfile);
 
-my $module    = 'Mac::iTerm::LaunchPad';
+my $module    = __PACKAGE__;
 my $github    = 'https://github.com/briandfoy/Mac-iTerm-LaunchPad';
 my $main_file = catfile( 'lib', split /::/, "$module.pm" );
 
@@ -34,7 +21,9 @@ my %WriteMakefile = (
 	'AUTHOR'        => 'brian d foy <bdfoy@cpan.org>',
 
 	'CONFIGURE_REQUIRES' => {
-		'ExtUtils::MakeMaker' => '6.64',
+		'ExtUtils::MakeMaker'   => '6.64',
+		'File::Spec::Functions' => '0',
+		'Mac::Glue'             => '0',
 		},
 
 	'BUILD_REQUIRES' => {
@@ -70,7 +59,8 @@ my %WriteMakefile = (
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # An auto installer should already have installed Mac::Glue
-{
+
+sub glueit {
 require Mac::Glue;
 
 my $iterm = eval { Mac::Glue->new( 'iTerm' ) };
@@ -115,9 +105,20 @@ unless( defined $iterm )
 
 sub arguments { \%WriteMakefile }
 
+sub MY::postamble {
+	<<'MAKE';
+install :: new-iterm-install
+	
+new-iterm-install:
+	$(ECHO) "Installing new-iterm symlink to module"
+	/bin/ln -sfv $(INSTALLSITELIB)/Mac/iTerm/LaunchPad.pm $(INSTALLBIN)/new-iterm 
+	$(CHMOD) 755 $(INSTALLSITELIB)/Mac/iTerm/LaunchPad.pm
+MAKE
+	}
+
 do_it() unless caller;
 sub do_it {
-	require File::Spec;
+	glueit();
 	my $MM ='ExtUtils::MakeMaker';
 	my $MM_version =
 		eval{ "$MM " . $WriteMakefile{'CONFIGURE_REQUIRES'}{'ExtUtils::MakeMaker'} }
@@ -125,7 +126,7 @@ sub do_it {
 		"$MM 6.64";
 	eval "use $MM_version" || die "Could not load $MM_version: $@";
 	eval "use Test::Manifest 1.21" 
-		if -e File::Spec->catfile( qw(t test_manifest) );
+		if -e catfile( qw(t test_manifest) );
 	WriteMakefile( %WriteMakefile );
 	}
 
