@@ -1,12 +1,13 @@
 require 5.008;
-use strict;
-use warnings;
 
 unless( $^O =~ /darwin/ ) {
 	warn "OS unsupported! You need a Mac for this module!\n";
 	exit 0;
 	}
 
+package Mac::iTerm::LaunchPad;
+use strict;
+use warnings;
 
 sub MY::postamble 
 	{
@@ -22,7 +23,7 @@ MAKE
 	
 use File::Spec::Functions qw(catfile);
 
-my $module    = 'Mac::iTerm::LaunchPad';
+my $module    = __PACKAGE__;
 ( my $dist = $module ) =~ s/::/-/g;
 
 my $github    = 'https://github.com/briandfoy/Mac-iTerm-LaunchPad';
