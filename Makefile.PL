@@ -68,7 +68,7 @@ my %WriteMakefile = (
 			},
 		},
 	
-	clean  => { FILES    => q|Mac-iTerm-LaunchPad-*| },
+	clean => { FILES => "$dist-*" },
 	);
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
