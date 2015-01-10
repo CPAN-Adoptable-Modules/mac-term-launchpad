@@ -23,6 +23,8 @@ MAKE
 use File::Spec::Functions qw(catfile);
 
 my $module    = 'Mac::iTerm::LaunchPad';
+( my $dist = $module ) =~ s/::/-/g;
+
 my $github    = 'https://github.com/briandfoy/Mac-iTerm-LaunchPad';
 my $main_file = catfile( 'lib', split /::/, "$module.pm" );
 
