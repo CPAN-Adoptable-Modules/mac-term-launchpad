@@ -1,10 +1,3 @@
-require 5.008;
-
-unless( $^O =~ /darwin/ ) {
-	warn "OS unsupported! You need a Mac for this module!\n";
-	exit 0;
-	}
-
 package Mac::iTerm::LaunchPad;
 use strict;
 use warnings;
@@ -77,47 +70,48 @@ my %WriteMakefile = (
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # An auto installer should already have installed Mac::Glue
 sub mac_glue {
-require Mac::Glue;
+	unless( $^O =~ /darwin/ ) {
+		warn "OS unsupported! You need a Mac for this module!\n";
+		exit 0;
+		}
 
-my $iterm = eval { Mac::Glue->new( 'iTerm' ) };
+	require Mac::Glue;
 
-if( $@ ) 
-	{
-	require Mac::Processes; Mac::Processes->import;
+	my $iterm = eval { Mac::Glue->new( 'iTerm' ) };
+
+	if( $@ ) {
+		require Mac::Processes; Mac::Processes->import;
 	
-	my $iterm_path = LSFindApplicationForInfo( undef, undef, 'iTerm.app' );
+		my $iterm_path = LSFindApplicationForInfo( undef, undef, 'iTerm.app' );
 
-	if( $iterm_path ) 
-		{
-		print <<"HERE";
-To create the Mac::Glue bindings for iTerm you need to run:
+		if( $iterm_path ) {
+			print <<"HERE";
+	To create the Mac::Glue bindings for iTerm you need to run:
 
-	sudo gluemac $iterm_path
+		sudo gluemac $iterm_path
 
 HERE
 
-		print "Would you like to run this now? (y/N) ";
+			print "Would you like to run this now? (y/N) ";
 
-		chomp( my $confirm = <> );
+			chomp( my $confirm = <> );
 
-		if( lc( $confirm ) eq 'y' ) 
+			if( lc( $confirm ) eq 'y' ) {
+				system 'sudo', 'gluemac', $iterm_path;
+				$iterm = eval { Mac::Glue->new( 'iTerm' ) };
+				}
+			}
+		else
 			{
-			system 'sudo', 'gluemac', $iterm_path;
-			$iterm = eval { Mac::Glue->new( 'iTerm' ) };
+			die "Could not find iTerm. Ensure you have it and try again\n";
 			}
 		}
-	else
-		{
-		die "Could not find iTerm. Ensure you have it and try again\n";
+
+	unless( defined $iterm ) {
+		die "Cannot continue: Ensure that the iTerm glue for Mac::Glue is installed\n";
 		}
-	}
 
-unless( defined $iterm )
-	{
-	die "Cannot continue: Ensure that the iTerm glue for Mac::Glue is installed\n";
 	}
-
-}
 
 sub arguments { \%WriteMakefile }
 
@@ -134,7 +128,12 @@ sub do_it {
 	eval "use $MM_version; 1" or die "Could not load $MM_version: $@";
 	eval "use Test::Manifest 1.21" 
 		if -e File::Spec->catfile( qw(t test_manifest) );
-	WriteMakefile( %WriteMakefile );
+	
+	my $arguments = arguments();
+	my $minimum_perl = $arguments->{MIN_PERL_VERSION} || '5.008';
+	eval "require $minimum_perl;" or die $@;
+
+	WriteMakefile( %$arguments );
 	}
 
 
