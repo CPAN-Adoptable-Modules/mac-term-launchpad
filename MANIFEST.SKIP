@@ -2,6 +2,7 @@
 
 \.releaserc
 \.lwpcookies
+\.travis.yml
 
 t/\d
 
