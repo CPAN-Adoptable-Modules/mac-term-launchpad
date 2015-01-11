@@ -74,7 +74,7 @@ my %WriteMakefile = (
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # An auto installer should already have installed Mac::Glue
-{
+sub mac_glue {
 require Mac::Glue;
 
 my $iterm = eval { Mac::Glue->new( 'iTerm' ) };
@@ -121,6 +121,8 @@ sub arguments { \%WriteMakefile }
 
 do_it() unless caller;
 sub do_it {
+	mac_glue();
+
 	require File::Spec;
 	my $MM ='ExtUtils::MakeMaker';
 	my $MM_version =
