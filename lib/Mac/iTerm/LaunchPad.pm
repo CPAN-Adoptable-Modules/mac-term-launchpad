@@ -10,7 +10,7 @@ our $VERSION = '1.009';
 
 =head1 NAME
 
-new-iterm - open a new iTerm window with one or more tabs
+Mac::iTerm::LaunchPad - open a new iTerm window with one or more tabs
 
 =head1 SYNOPSIS
 
