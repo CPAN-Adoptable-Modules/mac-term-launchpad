@@ -8,6 +8,8 @@ package Mac::iTerm::LaunchPad;
 
 our $VERSION = '1.009';
 
+=encoding utf8
+
 =head1 NAME
 
 Mac::iTerm::LaunchPad - open a new iTerm window with one or more tabs
@@ -19,28 +21,28 @@ Mac::iTerm::LaunchPad - open a new iTerm window with one or more tabs
 
 	---Frontmost finder directory, using special alias
 	% new-iterm finder
-	
+
 	---Named directory
 	% new-iterm /Users/brian/Dev
 
 	---Named directory with
 	% new-iterm ~/Dev
-	
-	---Multiple tabs 
+
+	---Multiple tabs
 	% new-iterm ~/Dev ~/Foo ~/Bar
-	
+
 	---Aliases, predefined in code
 	% new-iterm music applications
-	
+
 	---Aliases, defined in your own ~/.new-iterm-aliases
 	% new-iterm foo bar baz
-	
+
 	---Any combination
 	% new-iterm finder /Users/brian/Dev music ~/Pictures foo
-	
+
 	---From other commands
 	% perldoc -l Mac::Glue | xargs dirname | xargs new-iterm
-	
+
 =head1 DESCRIPTION
 
 This script opens a new iTerm window and creates a tab for each
@@ -65,13 +67,13 @@ program which does the same thing without the symlink.
 
 You can define aliases in the F<~/.new-iterm-aliases> file. The file
 is line-oriented and has the alias followed by its directory. You can
-use the ~ home directory shortcut. 
+use the ~ home directory shortcut.
 
 	#alias	directory
 	cpan /mirrors/MINICPAN
 	dev	~/Dev
 	paypal ~/Personal/Finances/PayPal
-	
+
 Since Mac OS X uses a case insenstive (though preserving) file system,
 case doesn't matter. If you tricked Mac OS X into using something else,
 use the right case and remove the C<lc()> in the code.
@@ -106,8 +108,8 @@ use the right case and remove the C<lc()> in the code.
 
 brian d foy, C<< <bdfoy@cpan.org> >>
 
-Inspired by a script from Chris Nandor (http://use.perl.org/~pudge/journal/32199) 
-which was inspired by a script from Curtis "Ovid" Poe 
+Inspired by a script from Chris Nandor (http://use.perl.org/~pudge/journal/32199)
+which was inspired by a script from Curtis "Ovid" Poe
 (http://use.perl.org/~Ovid/journal/32086).
 
 =head1 SOURCE AVAILABILITY
@@ -144,7 +146,7 @@ _run() unless caller;
 sub _run {
 
 _init();
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #	
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # argument processing
 
 foreach my $arg ( @ARGV )
@@ -155,7 +157,7 @@ foreach my $arg ( @ARGV )
 			# don't lc() if you have a case sensitive file system
 			$arg = lc( exists $Aliases{$arg} ? $Aliases{$arg} : $arg );
 			$arg = _get_finder_dir() if $arg eq 'finder';
-			
+
 			if( -d $arg ) { $arg }
 			else          { die "$arg isn't a directory!\n" }
 			}
@@ -164,20 +166,20 @@ foreach my $arg ( @ARGV )
 			_get_finder_dir();
 			}
 		};
-	
+
 	_launch_iterm( $cwd );
 	}
 }
 
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #	
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 sub _init
 	{
 	@ARGV = ( undef ) unless @ARGV; # finder window special case;
 
 	foreach my $key ( keys %Aliases ) { $Aliases{$key} =~ s/^~/$ENV{HOME}/ }
-	
+
 	print Dumper ( \%Aliases );
-	
+
 	if( open my($fh), "<", "$ENV{HOME}/.new-iterm-aliases" )
 		{
 		while( <$fh> )
@@ -189,9 +191,9 @@ sub _init
 			$dir =~ s/^~/$ENV{HOME}/;
 			$Aliases{$alias} = $dir;
 			}
-		}	
+		}
 	}
-	
+
 sub _get_finder_dir
 	{
 	use Mac::Files;
@@ -203,7 +205,7 @@ sub _get_finder_dir
 	$cwd =~ s/'/'\\''/g;
 	$cwd;
 	}
-	
+
 BEGIN {
 use Mac::Glue ':all';
 
@@ -217,7 +219,7 @@ my $session = 1;
 sub _launch_iterm
 	{
 	my $cwd = shift;
-	
+
 	$term->Launch( session => 'default' );
 	$term->obj( session => $session++ )->write(text => "cd '$cwd'");
 	}
