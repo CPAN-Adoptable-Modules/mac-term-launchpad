@@ -120,7 +120,7 @@ This source is in GitHub:
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright © 2007-2015, brian d foy <bdfoy@cpan.org>. All rights reserved.
+Copyright © 2007-2018, brian d foy <bdfoy@cpan.org>. All rights reserved.
 
 You may use this program under the terms of the Artistic License 2.0.
 
