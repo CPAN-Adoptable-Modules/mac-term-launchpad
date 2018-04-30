@@ -6,7 +6,7 @@ no warnings;
 
 package Mac::iTerm::LaunchPad;
 
-our $VERSION = '1.009';
+our $VERSION = '1.011';
 
 =encoding utf8
 
