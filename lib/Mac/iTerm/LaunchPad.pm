@@ -122,7 +122,7 @@ This source is in GitHub:
 
 Copyright © 2007-2015, brian d foy <bdfoy@cpan.org>. All rights reserved.
 
-You may use this program under the same terms as Perl itself.
+You may use this program under the terms of the Artistic License 2.0.
 
 Some parts come from Chris Nandor and are noted in the source. They are
 available under the same license.
